@@ -1,0 +1,20 @@
+server:
+  port: 8001
+# 数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springcloud?characterEncoding=utf8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: "081202"
+    type: com.alibaba.druid.pool.DruidDataSource
+    dbcp2:
+      min-idle: 10
+      max-idle: 100
+      initial-size: 10
+      max-wait-millis: 200
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml
+  type-aliases-package: com.zbl.springcloud.entities
