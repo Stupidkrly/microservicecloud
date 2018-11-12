@@ -1,0 +1,43 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: microservicecloud-zuul-gateway
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7004.com:7004/eureka,http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka
+  instance:
+    instance-id: gateway-9527.com
+    prefer-ip-address: true
+
+# Zuul 服务网关设置
+# http://gateway-9527.com:9527/xinyan/mydept/depts
+# http://gateway-9527.com:9527/xinyan/mydept/dept/1
+zuul:
+  prefix: /zbl                           #统一前缀
+  ignored-services: "*"                     #忽略所有真实服务名，不能再直接使用真实服务名访问
+  routes:
+    #指定单个微服务和path映射
+    dept-rout:                              #路由名
+      serviceId: microservicecloud-dept     #服务名
+      path: /mydept/**                      #映射路径
+
+# 指定 path 和 URL，但会破坏 Ribbon 负载均衡和 HystrixCommand 执行
+#      path: /mydept/**
+#      url: localhost:8001,localhost:8002,localhost:8003  #服务提供方的url
+# 指定 path 和 URL，不会破坏 Ribbon、Hystrix 特性
+#ribbon:
+#    eureka:
+#        enabled: false  #为Ribbon禁用Eureka
+#microservicecloud-dept:
+#    ribbon:
+#        listOfServers: localhost:8001,localhost:8002,localhost:8003
+
+info:
+  app.name: zbl-microcloud
+  company.name: www.zbl.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$

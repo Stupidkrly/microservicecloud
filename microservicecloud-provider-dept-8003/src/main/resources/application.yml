@@ -1,0 +1,36 @@
+server:
+  port: 8003
+# 数据源
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springcloud3?characterEncoding=utf8&serverTimezone=UTC&useSSL=false
+    username: root
+    password: "081202"
+    type: com.alibaba.druid.pool.DruidDataSource
+    dbcp2:
+      min-idle: 10
+      max-idle: 100
+      initial-size: 10
+      max-wait-millis: 200
+  application:
+    name: microservicecloud-dept #对外暴露的服务器名称
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml
+  mapper-locations: classpath:mybatis/mapper/*Mapper.xml
+  type-aliases-package: com.zbl.springcloud.entities
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka7002.com:7002/eureka,http://eureka7003.com:7003/eureka,http://eureka7004.com:7004/eureka
+  instance:
+    instance-id: microservicecloud-dept8003
+    prefer-ip-address: true #访问路径可以显示ip地址
+
+info:
+  app.name: zbl-microservicecloud
+  company.name: www.zbl.com
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
